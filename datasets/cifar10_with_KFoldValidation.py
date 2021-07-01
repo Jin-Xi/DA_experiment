@@ -3,7 +3,7 @@ import cifar10
 
 class cifar10_kfold():
     """
-    :param val_index : 用作验证集的折数的地址
+    :param fold_times : 交叉折数
     :param root : 数据的地址
     """
 

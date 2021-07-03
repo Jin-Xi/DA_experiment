@@ -8,7 +8,8 @@ import os
 class cifar10(Dataset):
     def __init__(self, root=None, file_list=[]):
         super(cifar10, self).__init__()
-        self.root = root.strip("/") + "/"
+        if root:
+            self.root = root.strip("/") + "/"
         if root != None:
             self.img_list = os.listdir(root)
         elif len(file_list) == 0:

@@ -7,12 +7,15 @@ import torchvision
 from torch.utils.data import DataLoader
 from datasets.cifar10 import cifar10
 from models.simple_net import simple_net
+from models.resnet import resnet32
+
+
 
 from tqdm import tqdm
 import time
 
 first_train = False
-epochs = 5
+epochs = 10
 best_acc = 0.0
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -26,7 +29,7 @@ if __name__ == "__main__":
     val_loader = DataLoader(val_data, batch_size=1000, shuffle=True)
     val_num = len(val_data)
 
-    net = simple_net()
+    net = resnet32()
     net = net.to(device)
     loss_function = torch.nn.CrossEntropyLoss()
 
@@ -43,7 +46,7 @@ if __name__ == "__main__":
         train_bar = tqdm(train_loader)
         for imgs, labels in train_bar:
             optimizer.zero_grad()
-            logits = net(imgs.to(device))
+            logits = net(imgs.float().to(device))
             loss = loss_function(logits, labels.to(device))
             loss.backward()
             optimizer.step()
